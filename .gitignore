@@ -1,3 +1,7 @@
+# VIM temporary files
+*~
+*.swp
+
 # Compiled Object files
 *.slo
 *.lo
