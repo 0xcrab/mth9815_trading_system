@@ -4,8 +4,7 @@ cmake_minimum_required(VERSION 3.5.2)
 PROJECT(9815_Final_Project) 
 SET(MAINFILE main)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
-SET(SOURCES ${SOURCE} "${MAINFILE}.cpp") 
+file(GLOB_RECURSE SOURCES src/*.cpp)
 
 # g++ config
 SET(CMAKE_CXX_COMPILER "g++") 
@@ -18,5 +17,5 @@ SET(CMAKE_BUILD_TYPE Debug)
 #SET(CMAKE_EXE_LINKER_FLAGS "-lc++ -lc++abi") 
 #SET(CMAKE_BUILD_TYPE Debug)
 
-ADD_EXECUTABLE("${MAINFILE}.out" ${SOURCES})
+ADD_EXECUTABLE("${MAINFILE}.out" ${SOURCES} "${MAINFILE}.cpp")
 

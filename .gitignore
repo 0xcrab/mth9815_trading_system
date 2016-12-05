@@ -1,6 +1,8 @@
 # This file contains .gitignore cofig for VIM/CPP/CMake
 # @ Zilun Shen <shenzilun@gmail.com>
 
+*.docx#
+
 # VIM temporary files
 # swap
 [._]*.s[a-w][a-z]
