@@ -1,6 +1,17 @@
+# This file contains .gitignore cofig for VIM/CPP/CMake
+# @ Zilun Shen <shenzilun@gmail.com>
+
 # VIM temporary files
+# swap
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+# session
+Session.vim
+# temporary
+.netrwhist
 *~
-*.swp
+# auto-generated tag files
+tags
 
 # Compiled Object files
 *.slo
@@ -31,3 +42,12 @@
 *.exe
 *.out
 *.app
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
