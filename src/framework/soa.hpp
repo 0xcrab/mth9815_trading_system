@@ -10,7 +10,7 @@
 
 #include <vector>
 
-using namespace std;
+using std::vector;
 
 /**
  * Definition of a generic base class ServiceListener to listen to add, update, and remve
@@ -44,6 +44,7 @@ class Service
 
 public:
 
+	virtual ~Service() = default;
   // Get data on our service given a key
   virtual V& GetData(K key) = 0;
 
@@ -72,6 +73,7 @@ class Connector
 {
 
 public:
+	virtual ~Connector() = default;
 
   // Publish data to the Connector
   virtual void Publish(V &data) = 0;

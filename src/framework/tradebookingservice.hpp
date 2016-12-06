@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 #include "soa.hpp"
+using std::string;
+using std::vector;
 
 // Trade sides
 enum Side { BUY, SELL };
@@ -23,6 +25,9 @@ class Trade
 {
 
 public:
+
+	//empty trade
+	Trade() = default;
 
   // ctor for a trade
   Trade(const T &_product, string _tradeId, string _book, long _quantity, Side _side);
@@ -59,12 +64,10 @@ private:
 template<typename T>
 class TradeBookingService : public Service<string,Trade <T> >
 {
-
 public:
-
-  // Book the trade
-  void BookTrade(const Trade<T> &trade) = 0;
-
+	virtual ~TradeBookingService() = default;
+	// Book the trade
+	virtual void BookTrade(const Trade<T> &trade) = 0;
 };
 
 template<typename T>

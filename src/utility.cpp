@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "framework/inquiryservice.hpp"
+#include "config.hpp"
 using namespace std;
 
 InputFileReader::InputFileReader(const std::string& _path)
@@ -60,4 +60,19 @@ std::string BondPrice_double2string(double dprice){
 	if(r == 4)	strprice += '+';
 	else strprice += std::to_string(r);
 	return strprice;
+}
+
+// Create Bond from CUSIP id
+Bond makeBond(std::string bondid){
+	size_t i;
+	for(i=0; i<NUM_OF_BONDS; i++){
+		if(CUSIPS_LIST[i] == bondid){
+			return Bond(bondid,
+					BOND_ID_TYPE_LIST[i],
+					TICKER_LIST[i],
+					COUPON_LIST[i],
+					MATURITY_LIST[i]);
+		}
+	}
+	return Bond();
 }

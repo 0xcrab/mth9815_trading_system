@@ -9,6 +9,9 @@
 #include <algorithm>
 #include <iterator>
 #include "src/utility.hpp"
+#include "src/GenInputFiles.hpp"
+#include "src/BondTradeBookingService.hpp"
+#include "src/BondPositionService.cpp"
 using namespace std;
 
 int main() {
@@ -33,6 +36,18 @@ int main() {
 				  std::ostream_iterator<string>(std::cout, "  / "));
 		cout << endl;
 	}
+
+	GenTradeInputFile("testgeninputfile.txt");
+
+	BondPositionService pos_srv;
+	BondTradeBookingService trade_srv;
+	trade_srv.AddListener(&pos_srv);
+
+	// Start load trade data
+	BondTradeConnector_File trade_con("./testgeninputfile.txt");
+	trade_con.bindService(trade_srv);
+	trade_con.start();
+
 	return 0;
 }
 
