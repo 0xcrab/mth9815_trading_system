@@ -13,7 +13,8 @@ void BondTradeBookingService::AddListener(ServiceListener<Trade<Bond>> *listener
 
 void BondTradeBookingService::BookTrade(const Trade<Bond>& trade) 
 {
-	cout << "\t---> Book Trade " << trade.GetTradeId() << endl;
+	cout << "\t---> Book Trade " << trade.GetTradeId() << 
+		" for bond " << trade.GetProduct().GetProductId() << endl;
 	for(auto&& i : listeners){
 		i->ProcessAdd(const_cast<Trade<Bond>&>(trade));
 	}

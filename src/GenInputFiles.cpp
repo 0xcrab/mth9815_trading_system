@@ -20,7 +20,7 @@ void GenTradeInputFile(std::string filename){
 				"T"+to_string(++cnt), // trade id
 				bondid, // bond id
 				TRSY_LIST[rand()%3], // TRSY
-				BondPrice_double2string(100 + (rand()%512 - 256) / 256.0), // price
+				//BondPrice_double2string(100 + (rand()%512 - 256) / 256.0), // price
 				to_string((rand()%10)*10000), // volume
 				DIRECTION[rand()%2] // direction
 			};
