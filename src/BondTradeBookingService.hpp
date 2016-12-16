@@ -46,7 +46,8 @@ private:
 	map<string, Trade<Bond>*> trades;
 };
 
-class BondTradeConnector_File : public Connector<Trade<Bond>>, private InputFileReader{
+class BondTradeConnector_File : public Connector<Trade<Bond>>, 
+	private InputFileReader{
 public:
 	BondTradeConnector_File(std::string file);
 	virtual ~BondTradeConnector_File() = default;
@@ -56,7 +57,5 @@ public:
 private:
 	BondTradeBookingService* srv_ptr;
 };
-
-
 
 #endif

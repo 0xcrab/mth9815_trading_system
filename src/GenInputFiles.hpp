@@ -12,4 +12,7 @@
 // Generate trade input file 
 void GenTradeInputFile(std::string filename);
 
+// Generate price input file
+void GenPriceInputFile(std::string filename);
+
 #endif

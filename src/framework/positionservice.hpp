@@ -63,10 +63,8 @@ public:
 
 };
 
-#include <iostream>
 template<typename T>
 Position<T>::Position() {
-	std::cout << " Ctor of Position " << std::endl;
 	positions["TRSY1"] = 0;
 	positions["TRSY2"] = 0;
 	positions["TRSY3"] = 0;

@@ -32,3 +32,21 @@ void GenTradeInputFile(std::string filename){
 	}
 	out.close();
 }
+
+void GenPriceInputFile(string filename){
+	ofstream out(filename);
+	for(auto&& bondid : CUSIPS_LIST){
+		for(int i=1; i<=NUM_OF_PRICE; i++){
+			double mid = 100 + (rand()%512 - 256) / 256.0;
+			double spread = (rand()%3 + 2) / 256.0;
+			vector<string> record = {
+				bondid, // bond id
+				BondPrice_double2string(mid), // mid price
+				BondPrice_double2string(spread) // bid/offer spread
+			};
+			copy(record.begin(), record.end(),
+					ostream_iterator<string>(out, ","));
+			out << endl;
+		}
+	}
+}

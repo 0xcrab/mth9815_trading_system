@@ -10,6 +10,9 @@
  * @ Zilun shen <shenzilun@gmail.com>
  */
 
+#ifndef BASICLISTENER_HPP
+#define BASICLISTENER_HPP
+
 #include "framework/soa.hpp"
 
 template<typename V>
@@ -29,3 +32,5 @@ public:
   virtual void ProcessUpdate(V &data) {}
 
 };
+
+#endif

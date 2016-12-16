@@ -9,6 +9,7 @@
 
 #include <string>
 #include "soa.hpp"
+using std::string;
 
 /**
  * A price object consisting of mid and bid/offer spread.
@@ -21,6 +22,7 @@ class Price
 public:
 
   // ctor for a price
+  Price(){}
   Price(const T &_product, double _mid, double _bidOfferSpread);
 
   // Get the product
@@ -33,7 +35,7 @@ public:
   double GetBidOfferSpread() const;
 
 private:
-  const T& product;
+  T product;
   double mid;
   double bidOfferSpread;
 
@@ -45,7 +47,7 @@ private:
  * Type T is the product type.
  */
 template<typename T>
-class PricingService : public Service<string,Price <T> >
+class PricingService : public virtual Service<string,Price <T> >
 {
 };
 

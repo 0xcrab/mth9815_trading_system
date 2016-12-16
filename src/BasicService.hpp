@@ -9,6 +9,9 @@
  * @ Zilun shen <shenzilun@gmail.com>
  */
 
+#ifndef BASICSERVICE_HPP
+#define BASICSERVICE_HPP
+
 #include "framework/soa.hpp"
 #include <vector>
 #include <string>
@@ -24,7 +27,10 @@ public:
 	virtual V& GetData(K key){ return data_pool[key]; }
 
 	// The callback that a Connector should invoke for any new or updated data
-	virtual void OnMessage(V &data){}
+	virtual void OnMessage(V &data){
+		for(auto&& lsnr : listeners)
+			lsnr->ProcessAdd(data);
+	}
 
 	// Add a listener to the Service for callbacks on add, remove, and update events
 	// for data to the Service.
@@ -37,3 +43,5 @@ protected:
 	vector<ServiceListener<V>*> listeners;
 	map<K, V> data_pool;
 };
+
+#endif

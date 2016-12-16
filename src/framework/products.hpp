@@ -27,7 +27,6 @@ class Product
 public:
 
   // ctor for a prduct
-  Product();
   Product(string _productId, ProductType _productType);
 
   // Get the product identifier

@@ -37,13 +37,15 @@ const std::vector<date> MATURITY_LIST{
 };
 
 
-
-
-
 // Trade intput csv file name
 const std::string TRADE_INPUT_FILE = "trades.txt";
 // Number of trade for each bond
 const int NUM_OF_TRADE = 10;
+
+// Price input csv file name
+const std::string PRICE_INPUT_FILE = "price.txt";
+// Number of trade for each bond
+const int NUM_OF_PRICE = 10;
 
 
 #endif

@@ -24,7 +24,7 @@ Bond::Bond(string _productId, BondIdType _bondIdType, string _ticker, float _cou
   maturityDate =_maturityDate;
 }
 
-Bond::Bond() : Product(0, BOND)
+Bond::Bond() : Product("", BOND)
 {
 }
 
