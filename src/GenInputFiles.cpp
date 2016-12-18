@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iostream>
 #include "utility.hpp"
+#include "config.hpp"
+#include "framework/inquiryservice.hpp"
 
 using namespace std;
 
@@ -49,4 +51,58 @@ void GenPriceInputFile(string filename){
 			out << endl;
 		}
 	}
+	out.close();
+}
+
+void GenMarketdataInputFile(std::string filename){
+	ofstream out(filename);
+	const double increment = 1.0/ 256.0;
+	for(auto&& bondid : CUSIPS_LIST){
+		for(int i=1; i<=NUM_OF_MARKETDATA; i++){
+			vector<string> record;
+			record.push_back(bondid);
+			double mid = 100 + (rand()%512 - 256) / 256.0;
+			double bid = mid - increment;
+			double ask = mid + increment;
+			// bid1 --- bid5
+			for(int j=0; j<5; j++){
+				record.push_back(BondPrice_double2string(bid - j*increment));
+				// volume
+				record.push_back(to_string((j+1) * 10 * 1000000));
+			}
+			// ask1 --- ask5
+			for(int j=0; j<5; j++){
+				record.push_back(BondPrice_double2string(ask + j*increment));
+				// volume
+				record.push_back(to_string((j+1) * 10 * 1000000));
+			}
+			// output to file
+			copy(record.begin(), record.end(),
+					ostream_iterator<string>(out, ","));
+			out << endl;
+		}
+	}
+	out.close();
+}
+
+
+void GenInquiryInputFile(std::string filename){
+	ofstream out (filename);
+	size_t inq_id = 0;
+	for(auto&& bondid : CUSIPS_LIST){
+		for(int i=1; i<=NUM_OF_INQUIRY; i++){
+			vector<string> record;
+			record.push_back("Inquiry #" + to_string(++inq_id));
+			record.push_back(bondid);
+			record.push_back(to_string(rand()%2));
+			record.push_back(to_string(rand()%1000000));
+			record.push_back(BondPrice_double2string(
+						100 + (rand()%512 - 256) / 256.0));
+			record.push_back(to_string(InquiryState::RECEIVED));
+			copy(record.begin(), record.end(),
+					ostream_iterator<string>(out, ","));
+			out << endl;
+		}
+	}
+	out.close();
 }

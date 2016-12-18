@@ -65,6 +65,6 @@ void BondTradeConnector_File::start()
 	}
 }
 
-void BondTradeConnector_File::Publish(Trade<Bond> &data) 
+void BondTradeConnector_File::Publish(const Trade<Bond> &data) 
 {
 }

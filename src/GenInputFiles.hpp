@@ -15,4 +15,10 @@ void GenTradeInputFile(std::string filename);
 // Generate price input file
 void GenPriceInputFile(std::string filename);
 
+// Generate marketdata input file
+void GenMarketdataInputFile(std::string filename);
+
+// Generate inquiry input file
+void GenInquiryInputFile(std::string filename);
+
 #endif

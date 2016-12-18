@@ -13,19 +13,110 @@
 #include "src/BondTradeBookingService.hpp"
 #include "src/BondPositionService.hpp"
 #include "src/BondPricingService.hpp"
+#include "src/BondRiskService.hpp"
+#include "src/BondMarketdataService.hpp"
+#include "src/BondAlgoStreamingService.hpp"
+#include "src/BondStreamingService.hpp"
+#include "src/BondInquiryService.hpp"
+#include "src/BondAlgoExcutionService.hpp"
 using namespace std;
 
-
 void testUtilities();
-void testTradeBooking_n_Position();
+void testTradeBooking_n_Position_n_Risk();
 void testPricing_n_Risk();
+void testMarketdata();
+void testInquiry();
 
 int main() {
 
-	testPricing_n_Risk();
+	// Test Algo Execution Service
+
+
+	//testInquiry();
+	//testTradeBooking_n_Position_n_Risk();
+	//testPricing_n_Risk();
 	// TODO: BondPricingService is ready, next step is to
 	// implement BondRiskService and add listeners to BondPricingService
 	return 0;
+}
+
+void testInquiry(){
+	// Test Inquiry
+	GenInquiryInputFile(INQUIRY_INPUT_FILE);
+	BondInquiryConnector_File inq_conn(INQUIRY_INPUT_FILE);
+	BondInquiryService inq_srv(inq_conn);
+	inq_conn.bindService(inq_srv);
+	inq_conn.start();
+}
+
+void testMarketdata(){
+	GenMarketdataInputFile(MARKETDATA_INPUT_FILE);
+	BondMarketdataService mkt_srv;
+	// Input a orderbook and show AggregateDepth 
+	BondMarketdataConnector_Demo mkt_con_demo;
+	mkt_con_demo.bindService(mkt_srv);
+
+	auto make_order_stack = [=](vector<double> price, PricingSide side){
+		vector<Order> stk;
+		for(auto i : price){
+			stk.push_back(Order(i, 1000, side));
+		}
+		return stk;
+	};
+
+	// Generate sample orderbook, the volume is 1000 on each order
+	mkt_con_demo.AddOrderBook(OrderBook<Bond>(
+			makeBond(CUSIPS_LIST[0]),
+			make_order_stack({99.998, 99.997, 99.994, 99.998}, BID),
+			make_order_stack({100.001, 100.002, 100.001, 100.001}, OFFER)
+			));
+	cout << "AggregateDepth on 99.998 : " << 
+		mkt_srv.AggregateDepth(CUSIPS_LIST[0], 99.998) << endl;
+	cout << "AggregateDepth on 100.001 : " << 
+		mkt_srv.AggregateDepth(CUSIPS_LIST[0], 100.001) << endl;
+
+	BondMarketdataConnector_File mkt_con(MARKETDATA_INPUT_FILE);
+	mkt_con.bindService(mkt_srv);
+	mkt_con.start();
+}
+
+void testTradeBooking_n_Position_n_Risk(){
+
+	GenTradeInputFile(TRADE_INPUT_FILE);
+
+	BondPositionService pos_srv;
+	BondTradeBookingService trade_srv;
+	BondPositionListener pos_lsn(trade_srv, pos_srv);
+
+	BondRiskService risk_srv;
+	BondRiskListener risk_lsn(pos_srv, risk_srv);
+
+	// Start load trade data
+	BondTradeConnector_File trade_con(TRADE_INPUT_FILE);
+	// This connector reads file and is reusable.
+	trade_con.bindService(trade_srv);
+	trade_con.start();
+	// Then we can still bind it to another BondTradeBookingService
+}
+	
+void testPricing_n_Risk(){
+	GenPriceInputFile(PRICE_INPUT_FILE);
+	
+	// Pricing service
+	BondPricingService prc_srv;
+
+	// TODO: Create a Risk Service bind to Pricing Service
+	
+	// Output price stream
+	BondAlgoStreamingService algostream_srv;
+	BondStreamingService stream_srv(BONDSTREAM_OUTPUT_FILE);
+	BondAlgoStreamingListener algostream_lsn(prc_srv, algostream_srv);
+	BondStreamingListener stream_lsn(algostream_srv, stream_srv);
+
+	BondPricingConnector_File prc_con(PRICE_INPUT_FILE);
+	prc_con.bindService(prc_srv);
+	prc_con.start();
+
 }
 
 // Test price conversion and input file gen
@@ -51,27 +142,3 @@ void testUtilities(){
 		cout << endl;
 	}
 }
-
-void testTradeBooking_n_Position(){
-	GenTradeInputFile("testgeninputfile.txt");
-
-	BondPositionService pos_srv;
-	BondTradeBookingService trade_srv;
-	BondPositionListener pos_lsn(trade_srv, pos_srv);
-
-	// Start load trade data
-	BondTradeConnector_File trade_con("./testgeninputfile.txt");
-	trade_con.bindService(trade_srv);
-	trade_con.start();
-}
-	
-void testPricing_n_Risk(){
-	GenPriceInputFile(PRICE_INPUT_FILE);
-	
-	BondPricingService prc_srv;
-	BondPricingConnector_File prc_con(PRICE_INPUT_FILE);
-	prc_con.bindService(prc_srv);
-	prc_con.start();
-
-}
-

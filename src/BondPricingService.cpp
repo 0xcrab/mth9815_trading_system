@@ -4,9 +4,12 @@ using namespace std;
 
 void BondPricingService::OnMessage(Price<Bond>& data) 
 {
+#ifdef DEBUG_PRINT_DEMO
 	cout << data.GetProduct().GetProductId() << " " 
 		<< data.GetMid() 
 		<< endl;
+#endif
+	BasicService::OnMessage(data);
 }
 
 BondPricingConnector_File::BondPricingConnector_File(string file)
@@ -33,5 +36,5 @@ void BondPricingConnector_File::start()
 	}
 }
 
-void BondPricingConnector_File::Publish(Price<Bond>& data){
+void BondPricingConnector_File::Publish(const Price<Bond>& data){
 }

@@ -33,7 +33,7 @@ public:
 	virtual ~BondPricingConnector_File() = default;
 	void bindService(BondPricingService &_srv);
 	void start();
-	void Publish(Price<Bond> &data) override;
+	void Publish(const Price<Bond> &data) override;
 private:
 	BondPricingService* srv_ptr;
 };

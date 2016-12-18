@@ -19,6 +19,7 @@ class PriceStreamOrder
 public:
 
   // ctor for an order
+  PriceStreamOrder() = default;
   PriceStreamOrder(double _price, long _visibleQuantity, long _hiddenQuantity, PricingSide _side);
 
   // The side on this order
@@ -52,6 +53,7 @@ class PriceStream
 public:
 
   // ctor
+  PriceStream() = default;
   PriceStream(const T &_product, const PriceStreamOrder &_bidOrder, const PriceStreamOrder &_offerOrder);
 
   // Get the product
@@ -76,38 +78,15 @@ private:
  * Type T is the product type.
  */
 template<typename T>
-class StreamingService : public Service<string,PriceStream <T> >
+class StreamingService : public virtual Service<string,PriceStream <T> >
 {
 
 public:
 
   // Publish two-way prices
-  void PublishPrice(const PriceStream<T>& priceStream) = 0;
+  virtual void PublishPrice(const PriceStream<T>& priceStream) = 0;
 
 };
-
-PriceStreamOrder::PriceStreamOrder(double _price, long _visibleQuantity, long _hiddenQuantity, PricingSide _side)
-{
-  price = _price;
-  visibleQuantity = _visibleQuantity;
-  hiddenQuantity = _hiddenQuantity;
-  side = _side;
-}
-
-double PriceStreamOrder::GetPrice() const
-{
-  return price;
-}
-
-long PriceStreamOrder::GetVisibleQuantity() const
-{
-  return visibleQuantity;
-}
-
-long PriceStreamOrder::GetHiddenQuantity() const
-{
-  return hiddenQuantity;
-}
 
 template<typename T>
 PriceStream<T>::PriceStream(const T &_product, const PriceStreamOrder &_bidOrder, const PriceStreamOrder &_offerOrder) :

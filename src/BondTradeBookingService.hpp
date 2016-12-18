@@ -53,7 +53,7 @@ public:
 	virtual ~BondTradeConnector_File() = default;
 	void bindService(BondTradeBookingService &_srv);
 	void start();
-	void Publish(Trade<Bond> &data) override;
+	void Publish(const Trade<Bond> &data) override;
 private:
 	BondTradeBookingService* srv_ptr;
 };

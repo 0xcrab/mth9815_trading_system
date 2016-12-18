@@ -26,7 +26,8 @@ class ExecutionOrder
 public:
 
   // ctor for an order
-  ExecutionOrder(const T &_product, PricingSide _side, string _orderId, OrderType _orderType, double _price, double _visibleQuantity, double _hiddenQuantity, string _parentOrderId, bool _isChildOrder);
+  ExecutionOrder(const T &_product, PricingSide _side, string _orderId, OrderType _orderType, 
+		  double _price, double _visibleQuantity, double _hiddenQuantity, string _parentOrderId, bool _isChildOrder);
 
   // Get the product
   const T& GetProduct() const;
@@ -71,13 +72,13 @@ private:
  * Type T is the product type.
  */
 template<typename T>
-class ExecutionService : public Service<string,ExecutionOrder <T> >
+class ExecutionService : public virtual Service<string,ExecutionOrder <T> >
 {
 
 public:
 
   // Execute an order on a market
-  void ExecuteOrder(const ExecutionOrder<T>& order, Market market) = 0;
+  virtual void ExecuteOrder(const ExecutionOrder<T>& order, Market market) = 0;
 
 };
 

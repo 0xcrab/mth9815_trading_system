@@ -76,7 +76,7 @@ public:
 	virtual ~Connector() = default;
 
   // Publish data to the Connector
-  virtual void Publish(V &data) = 0;
+  virtual void Publish(const V &data) = 0;
 
 };
 

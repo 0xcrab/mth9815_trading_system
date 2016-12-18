@@ -1,5 +1,6 @@
 #include "utility.hpp"
 #include <iostream>
+#include <iterator>
 #include <cmath>
 #include <utility>
 #include <fstream>
@@ -33,6 +34,25 @@ bool InputFileReader::getNextLine(std::vector<std::string>& vline)
 	}
 	return false;
 }
+
+OutputFileWriter::OutputFileWriter(const std::string&_path)
+	: filepath(_path)
+{
+	outdata.open(filepath);
+}
+
+void OutputFileWriter::OutputLine(const std::vector<std::string>& vline)
+{
+	copy(vline.begin(), vline.end(),
+			ostream_iterator<string>(outdata, ","));
+	outdata << endl;
+}
+
+OutputFileWriter::~OutputFileWriter()
+{
+	outdata.close();
+}
+
 
 // Convert from fraction notation to decimal
 double BondPrice_string2double(std::string strprice){
@@ -75,4 +95,14 @@ Bond makeBond(std::string bondid){
 		}
 	}
 	return Bond();
+}
+
+double BondPV01(const std::string cusip){
+	size_t i;
+	for(i=0; i<NUM_OF_BONDS; i++){
+		if(CUSIPS_LIST[i] == cusip){
+			return PV01_LIST[i];
+		}
+	}
+	return 0;
 }

@@ -24,7 +24,9 @@ class Inquiry
 public:
 
   // ctor for an inquiry
-  Inquiry(string _inquiryId, const T &_product, Side _side, long _quantity, double _price, InquiryState _state);
+  Inquiry(string _inquiryId, const T &_product, Side _side, 
+		  long _quantity, double _price, InquiryState _state);
+  Inquiry() = default;
 
   // Get the inquiry ID
   const string& GetInquiryId() const;
@@ -44,6 +46,12 @@ public:
   // Get the current state on the inquiry
   InquiryState GetState() const;
 
+  // Change state
+  void ChangeState(InquiryState _newstate){state = _newstate;}
+  
+  // ChangePrice
+  void ChangePrice(double _newprice){price = _newprice;}
+
 private:
   string inquiryId;
   T product;
@@ -60,16 +68,16 @@ private:
  * Type T is the product type.
  */
 template<typename T>
-class InquiryService : public Service<string,Inquiry <T> >
+class InquiryService : public virtual Service<string,Inquiry <T> >
 {
 
 public:
 
   // Send a quote back to the client
-  void SendQuote(const string &inquiryId, double price) = 0;
+  virtual void SendQuote(const string &inquiryId, double price) = 0;
 
   // Reject an inquiry from the client
-  void RejectInquiry(const string &inquiryId) = 0;
+  virtual void RejectInquiry(const string &inquiryId) = 0;
 
 };
 

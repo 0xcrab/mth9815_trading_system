@@ -22,9 +22,10 @@ public:
 
   // ctor for a PV01 value
   PV01(const T &_product, double _pv01, long _quantity);
+  PV01() = default;
 
   // Get the product on this PV01 value
-  const T& GetProduct() const;
+  const T& GetProduct() const {return product;}
 
   // Get the PV01 value
   double GetPV01() const;
@@ -71,16 +72,16 @@ private:
  * Type T is the product type.
  */
 template<typename T>
-class RiskService : public Service<string,PV01 <T> >
+class RiskService : public virtual Service<string,PV01 <T> >
 {
 
 public:
 
   // Add a position that the service will risk
-  void AddPosition(Position<T> &position) = 0;
+  virtual void AddPosition(Position<T> &position) = 0;
 
   // Get the bucketed risk for the bucket sector
-  const PV01<T>& GetBucketedRisk(const BucketedSector<T> &sector) const = 0;
+  virtual double GetBucketedRisk(const BucketedSector<T> &sector) const = 0;
 
 };
 
