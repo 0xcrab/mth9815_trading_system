@@ -23,19 +23,18 @@ BondAlgoExcutionService::BondAlgoExcutionService()
 
 void BondAlgoExcutionService::AddOrderBook(OrderBook<Bond> orderbook)
 {
-	// TODO: make an update
 	// Place a small order on both bid1 and offer1
 	
 	auto bid = AlgoExecution(
 				orderbook.GetProduct().GetProductId(),
 				orderbook.GetBidStack().front().GetSide(),
 				orderbook.GetBidStack().front().GetPrice(),
-				1000);
+				orderbook.GetBidStack().front().GetQuantity() / 1000);
 	auto offer = AlgoExecution(
 				orderbook.GetProduct().GetProductId(),
 				orderbook.GetOfferStack().front().GetSide(),
 				orderbook.GetOfferStack().front().GetPrice(),
-				1000);
+				orderbook.GetOfferStack().front().GetQuantity() / 1000);
 	BasicService::OnMessage(bid);
 	BasicService::OnMessage(offer);
 }

@@ -28,6 +28,7 @@ public:
   // ctor for an order
   ExecutionOrder(const T &_product, PricingSide _side, string _orderId, OrderType _orderType, 
 		  double _price, double _visibleQuantity, double _hiddenQuantity, string _parentOrderId, bool _isChildOrder);
+  ExecutionOrder() = default;
 
   // Get the product
   const T& GetProduct() const;

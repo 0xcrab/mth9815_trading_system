@@ -8,6 +8,10 @@ PriceStreamOrder::PriceStreamOrder(double _price, long _visibleQuantity, long _h
   side = _side;
 }
 
+PricingSide PriceStreamOrder::GetSide() const{
+	return side;
+}
+
 double PriceStreamOrder::GetPrice() const
 {
   return price;

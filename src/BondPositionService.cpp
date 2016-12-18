@@ -15,14 +15,16 @@ void BondPositionService::AddTrade(const Trade<Bond> &trade)
 		data_pool.insert({key, initpos});
 		pos = data_pool.find(key);
 	}
-	pos->second.AddPosition(trade);
+	else
+		pos->second.AddPosition(trade);
 	
+#ifdef DEBUG_PRINT_DEMO
 	cout << "\t Updating position ";
 	cout << trade.GetProduct().GetProductId() << " " <<
 		trade.GetSide() << " " << trade.GetQuantity() << endl;
 	cout << "\t\t ===> Total position is "
 		<< data_pool[trade.GetProduct().GetProductId()].GetAggregatePosition() << endl;
-
+#endif
 	OnMessage(pos->second);
 }
 

@@ -34,6 +34,10 @@ public:
 
 	// Get data on our service given a key
 	virtual V& GetData(K key){ return data_pool[key]; }
+	//virtual const V& GetData(K key) const { 
+		//std::cout << "Get Data" << key << std::endl;	
+		//return data_pool.at(key); 
+	//}
 
 	// The callback that a Connector should invoke for any new or updated data
 	virtual void OnMessage(V &data){

@@ -22,6 +22,8 @@ void BondStreamingListener::ProcessAdd(AlgoStream& data)
 void BondStreamingService::PublishPrice(const PriceStream<Bond>& priceStream)
 {
 	fileWriter.Publish(priceStream);
+	auto tmp = priceStream;
+	BasicService::OnMessage(tmp);
 }
 
 BondStreamingConnector_File::BondStreamingConnector_File(std::string path)

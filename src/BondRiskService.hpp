@@ -25,10 +25,13 @@ public:
 	void AddPosition(Position<Bond> &position) override;
 
 	// Get the bucketed risk for the bucket sector
-	double GetBucketedRisk(const BucketedSector<Bond> &sector) const override;
+	double GetBucketedRisk(const BucketedSector<Bond> &sector) override;
+
+	// Get risk for individual bond
+	double GetRisk(const Bond & prod) override;
 	
 private:
-	std::vector<PV01<Bond>> cur_risk;
+	//std::vector<PV01<Bond>> cur_risk;
 };
 
 class BondRiskListener : public BasicListener<Position<Bond>>

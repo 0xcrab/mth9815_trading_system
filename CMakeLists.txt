@@ -8,7 +8,8 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 
 # g++ config
 SET(CMAKE_CXX_COMPILER "g++") 
-SET(CMAKE_CXX_FLAGS "-std=c++11 -O3 -D DEBUG_PRINT_DEMO") 
+SET(CMAKE_CXX_FLAGS "-std=c++11 -O3") 
+#SET(CMAKE_CXX_FLAGS "-std=c++11 -O3 -D DEBUG_PRINT_DEMO") 
 SET(CMAKE_BUILD_TYPE Debug) 
 
 # clang++ config

@@ -20,16 +20,17 @@ class BondExecutionService : public ExecutionService<Bond>,
 {
 public:
 	BondExecutionService();
-	void ExecuteOrder(const ExecutionOrder<Bond>& order, Market market);
+	void ExecuteOrder(const ExecutionOrder<Bond>& order, Market market) override;
 };
 
 class BondExecutionListener : public BasicListener<AlgoExecution>
 {
 public:
-	BondExecutionService(BondAlgoExcutionService &algosrv,
+	BondExecutionListener(BondAlgoExcutionService &algosrv,
 			BondExecutionService &exesrv);
+	void ProcessAdd(AlgoExecution &data) override;
 private:
-	BondExcutionService *srv_ptr;
+	BondExecutionService *srv_ptr;
 };
 
 #endif

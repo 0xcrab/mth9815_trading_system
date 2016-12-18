@@ -13,13 +13,11 @@ void BondAlgoStreamingService::PublishPrice(const PriceStream<Bond>& priceStream
 AlgoStream::AlgoStream(const PriceStream<Bond>& _pstr)
 	:pstr(&_pstr)
 {
-	// TODO: need to be revised
-	prod = makeBond("912828M72");
+	//prod = makeBond("912828M72");
 }
 
 const Bond& AlgoStream::GetProduct() const
 {
-	// TODO: To be implemented
 	return prod;
 }
 

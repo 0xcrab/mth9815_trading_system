@@ -100,6 +100,7 @@ const T& PriceStream<T>::GetProduct() const
   return product;
 }
 
+
 template<typename T>
 const PriceStreamOrder& PriceStream<T>::GetBidOrder() const
 {

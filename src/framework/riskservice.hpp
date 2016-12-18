@@ -22,7 +22,7 @@ public:
 
   // ctor for a PV01 value
   PV01(const T &_product, double _pv01, long _quantity);
-  PV01() = default;
+  PV01():pv01(0.0), quantity(0){}
 
   // Get the product on this PV01 value
   const T& GetProduct() const {return product;}
@@ -81,7 +81,10 @@ public:
   virtual void AddPosition(Position<T> &position) = 0;
 
   // Get the bucketed risk for the bucket sector
-  virtual double GetBucketedRisk(const BucketedSector<T> &sector) const = 0;
+  virtual double GetBucketedRisk(const BucketedSector<T> &sector) = 0;
+
+  // Get risk for individual bond
+  virtual double GetRisk(const T & prod) = 0;
 
 };
 
@@ -92,6 +95,12 @@ PV01<T>::PV01(const T &_product, double _pv01, long _quantity) :
   pv01 = _pv01;
   quantity = _quantity;
 }
+
+template<typename T>
+double PV01<T>::GetPV01() const {return pv01;}
+
+template<typename T>
+long PV01<T>::GetQuantity() const {return quantity;}
 
 template<typename T>
 BucketedSector<T>::BucketedSector(const vector<T>& _products, string _name) :

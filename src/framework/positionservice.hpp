@@ -11,6 +11,7 @@
 #include <map>
 #include "soa.hpp"
 #include "tradebookingservice.hpp"
+#include <iostream>
 
 using std::string;
 using std::map;
@@ -107,7 +108,6 @@ long Position<T>::GetAggregatePosition()
 	positions["TRSY1"] + 
 	positions["TRSY2"] + 
 	positions["TRSY3"];
-  return 0;
 }
 
 #endif
