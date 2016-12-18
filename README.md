@@ -8,6 +8,7 @@ The header file ```GenInputFiles.hpp``` provides a series of functions that can 
 
 ### Sample Size
 The size of *market data* and *price* for each Bond should be 1,000,000. However it costs about 3.5G memory which my laptop can't afford. Thus, I changed it to 100,000 when I run this trading system.
+>>>>>>> 4242e4f978a127ea75211a7b5a46317192ddb7aa
 To get a smaller sample size, please change *config.hpp*
 ```
 // Line 77
