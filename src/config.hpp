@@ -74,12 +74,12 @@ const int NUM_OF_TRADE = 10;
 // Price input csv file name
 const std::string PRICE_INPUT_FILE = "./input/price.txt";
 // Number of trade for each bond
-const int NUM_OF_PRICE = 10;
+const int NUM_OF_PRICE = 100000;
 
 // Marketdata input csv file name
 const std::string MARKETDATA_INPUT_FILE = "./input/marketdata.txt";
 // Number of marketdata for each bond
-const int NUM_OF_MARKETDATA = 10;
+const int NUM_OF_MARKETDATA = 100000;
 
 // BondStreamingService output file
 const std::string BONDSTREAM_OUTPUT_FILE = "./output/bondstream.txt";

@@ -45,7 +45,7 @@ int main() {
 void testInquiry(){
 	// Test Inquiry
 	cout << "------------------------------------------------" << endl;
-	cout << "Generating Inquiry input file...";
+	cout << "Generating Inquiry input file..." << flush;
 	GenInquiryInputFile(INQUIRY_INPUT_FILE);
 	cout << " Done!" << endl;
 	BondInquiryConnector_File inq_conn(INQUIRY_INPUT_FILE);
@@ -55,7 +55,7 @@ void testInquiry(){
 
 	BondHistoricalDataListener<Inquiry<Bond>> hist_inq_lsn(SERVICE_KEY_INQUIRY, inq_srv, hist_srv);
 	
-	cout << "BondInquiryConnector Started. Sending data to service...";
+	cout << "BondInquiryConnector Started. Sending data to service..." << flush;
 	inq_conn.bindService(inq_srv);
 	inq_conn.start();
 	cout << " Done!" << endl;
@@ -63,9 +63,6 @@ void testInquiry(){
 
 void testMarketdata(){
 	cout << "------------------------------------------------" << endl;
-	cout << "Generating Marketdata input file...";
-	GenMarketdataInputFile(MARKETDATA_INPUT_FILE);
-	cout << " Done!" << endl;
 	BondMarketdataService mkt_srv;
 	cout << "BondMarketdataService Created" << endl;
 	// Input a orderbook and show AggregateDepth 
@@ -94,6 +91,9 @@ void testMarketdata(){
 		mkt_srv.AggregateDepth(CUSIPS_LIST[0], 100.001) << endl;
 
 
+	cout << "Generating Marketdata input file..." << flush;
+	GenMarketdataInputFile(MARKETDATA_INPUT_FILE);
+	cout << " Done!" << endl;
 	BondMarketdataConnector_File mkt_con(MARKETDATA_INPUT_FILE);
 	// Test Algo Execution Service
 	BondAlgoExcutionService algo_srv;
@@ -105,7 +105,7 @@ void testMarketdata(){
 
 	BondHistoricalDataListener<ExecutionOrder<Bond>> hist_exe_lsn(SERVICE_KEY_EXECUTION, exe_srv, hist_srv);
 
-	cout << "BondMarketdataConnector Started. Sending data to service...";
+	cout << "BondMarketdataConnector Started. Sending data to service..." << flush;
 	mkt_con.bindService(mkt_srv);
 	mkt_con.start();
 	cout << "Done!" <<endl;
@@ -114,7 +114,7 @@ void testMarketdata(){
 void testTradeBooking_n_Position_n_Risk(){
 
 	cout << "------------------------------------------------" << endl;
-	cout << "Generating Trade input file...";
+	cout << "Generating Trade input file..." << flush;
 	GenTradeInputFile(TRADE_INPUT_FILE);
 	cout << " Done!" << endl;
 
@@ -131,7 +131,7 @@ void testTradeBooking_n_Position_n_Risk(){
 	BondHistoricalDataListener<PV01<Bond>> hist_risk_lsn(SERVICE_KEY_RISK, risk_srv, hist_srv);
 
 	// Start load trade data
-	cout << "BondTradeConnector Started. Sending data to service...";
+	cout << "BondTradeConnector Started. Sending data to service..." << flush;
 	BondTradeConnector_File trade_con(TRADE_INPUT_FILE);
 	// This connector reads file and is reusable.
 	trade_con.bindService(trade_srv);
@@ -142,7 +142,7 @@ void testTradeBooking_n_Position_n_Risk(){
 	
 void testPricing_n_Stream(){
 	cout << "------------------------------------------------" << endl;
-	cout << "Generating Price input file...";
+	cout << "Generating Price input file..." << flush;
 	GenPriceInputFile(PRICE_INPUT_FILE);
 	cout << " Done!" << endl;
 	
@@ -160,7 +160,7 @@ void testPricing_n_Stream(){
 
 	BondHistoricalDataListener<PriceStream<Bond>> hist_stream_lsn(SERVICE_KEY_STREAMING, stream_srv, hist_srv);
 
-	cout << "BondPricingConnector Started. Sending data to service...";
+	cout << "BondPricingConnector Started. Sending data to service..." << flush;
 	BondPricingConnector_File prc_con(PRICE_INPUT_FILE);
 	prc_con.bindService(prc_srv);
 	prc_con.start();
