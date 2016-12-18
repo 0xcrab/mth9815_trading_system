@@ -1,6 +1,11 @@
 #Bond Trading System for MTH9815
 This is the final project for MTH9815 Fall 2016. 
 
+### Requirement
+* Boost Library
+* CMake3.5.2
+* g++6.2.0
+
 ### Input and output
 All input files will be generated under *input* folder, and output files
 will be under *output* folder. 
