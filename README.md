@@ -11,9 +11,9 @@ The size of *market data* and *price* for each Bond should be 1,000,000. However
 To get a smaller sample size, please change *config.hpp*
 ```
 // Line 77
-const int NUM_OF_PRICE = 100000;
+const int NUM_OF_PRICE = 1000000;
 // Line 82
-const int NUM_OF_MARKETDATA = 100000;
+const int NUM_OF_MARKETDATA = 1000000;
 ```
 
 ### How to build
